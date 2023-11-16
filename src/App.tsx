@@ -1,35 +1,53 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import CoreConcepts from "./components/CoreConcepts";
+import Header from "./components/Header/Header";
+import TabButton from "./components/TabButton";
+import { CORE_CONCEPTS } from "./data";
 
 function App() {
-  const [count, setCount] = useState(5);
-
+  function handleSelect(selectedButton: Tabs) {
+    alert(selectedButton);
+  }
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <Header />
+      <main>
+        <section id="core-concepts">
+          <h2>Core concepts</h2>
+          <ul>
+            {CORE_CONCEPTS.map((concept) => (
+              <CoreConcepts
+                key={concept.id}
+                title={concept.title}
+                description={concept.description}
+                img={concept.image}
+              />
+            ))}
+          </ul>
+        </section>
+        <section id="examples">
+          <h2>Examples</h2>
+          <menu>
+            <TabButton onSelect={() => handleSelect(Tabs.COMPONENTS)}>
+              Components
+            </TabButton>
+            <TabButton onSelect={() => handleSelect(Tabs.JSX)}>JSX</TabButton>
+            <TabButton onSelect={() => handleSelect(Tabs.PROPS)}>
+              Props
+            </TabButton>
+            <TabButton onSelect={() => handleSelect(Tabs.STATE)}>
+              State
+            </TabButton>
+          </menu>
+        </section>
+      </main>
+    </div>
   );
 }
 
 export default App;
+export enum Tabs {
+  COMPONENTS = "components",
+  JSX = "jsx",
+  PROPS = "props",
+  STATE = "state",
+}
