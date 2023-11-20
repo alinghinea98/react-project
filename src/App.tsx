@@ -1,11 +1,13 @@
+import { useState } from "react";
 import CoreConcepts from "./components/CoreConcepts";
 import Header from "./components/Header/Header";
 import TabButton from "./components/TabButton";
 import { CORE_CONCEPTS } from "./data";
 
 function App() {
+  let [selectedTopic, setSelectedTopic] = useState("Please click on a button");
   function handleSelect(selectedButton: Tabs) {
-    alert(selectedButton);
+    setSelectedTopic(`You clicked on ${selectedButton}`);
   }
   return (
     <div>
@@ -38,6 +40,7 @@ function App() {
               State
             </TabButton>
           </menu>
+          {selectedTopic}
         </section>
       </main>
     </div>
