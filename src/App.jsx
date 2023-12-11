@@ -1,17 +1,18 @@
-import Header from './components/Header/Header.jsx';
-import CoreConcepts from './components/CoreConcepts.jsx';
-import Examples from './components/Examples.jsx';
+import Player from './components/Player.jsx';
 
 function App() {
-  return (
-    <>
-      <Header />
-      <main>
-        <CoreConcepts/>
-        <Examples/>
-      </main>
-    </>
-  );
+    return (
+        <main>
+            <div id="game-container">
+                <ol id="players">
+                    <Player name="Player 1" symbol="X"/>
+                    <Player name="Player 2" symbol="O"/>
+                </ol>
+                GAME BOARD
+            </div>
+            LOG
+        </main>
+    )
 }
 
-export default App;
+export default App
