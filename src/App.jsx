@@ -3,17 +3,65 @@ import GameBoard from './components/GameBoard.jsx';
 import { useState } from 'react';
 import Log from './components/Log.jsx';
 
-function App() {
-    const [activePlayer, setActivePLayer] = useState('X');
-    const [gameTurns, setGameTurns] = useState([]);
+const WINNING_COMBINATIONS = [
+    [
+        { row: 0, column: 0 },
+        { row: 0, column: 1 },
+        { row: 0, column: 2 },
+    ],
+    [
+        { row: 1, column: 0 },
+        { row: 1, column: 1 },
+        { row: 1, column: 2 },
+    ],
+    [
+        { row: 2, column: 0 },
+        { row: 2, column: 1 },
+        { row: 2, column: 2 },
+    ],
+    [
+        { row: 0, column: 0 },
+        { row: 1, column: 0 },
+        { row: 2, column: 0 },
+    ],
+    [
+        { row: 0, column: 1 },
+        { row: 1, column: 1 },
+        { row: 2, column: 1 },
+    ],
+    [
+        { row: 0, column: 2 },
+        { row: 1, column: 2 },
+        { row: 2, column: 2 },
+    ],
+    [
+        { row: 0, column: 0 },
+        { row: 1, column: 1 },
+        { row: 2, column: 2 },
+    ],
+    [
+        { row: 0, column: 2 },
+        { row: 1, column: 1 },
+        { row: 2, column: 0 },
+    ],
+];
 
+function deriveActivePlayer(gameTurns) {
+    let currentPlayer = 'X';
+    if (!!gameTurns.length && gameTurns[0].player === 'X') {
+        currentPlayer = '0';
+    }
+    return currentPlayer;
+}
+
+function App() {
+    // const [activePlayer, setActivePLayer] = useState('X');
+    const [gameTurns, setGameTurns] = useState([]);
+    const activePlayer = deriveActivePlayer(gameTurns);
     function handleSelectSquare(rowIndex, colIndex) {
-        setActivePLayer((currActivePlayer) => currActivePlayer === 'X' ? '0' : 'X');
+        // setActivePLayer((currActivePlayer) => currActivePlayer === 'X' ? '0' : 'X');
         setGameTurns(prevState => {
-            let currentPlayer = 'X';
-            if (!!prevState.length && prevState[0].player === 'X') {
-                currentPlayer = '0';
-            }
+            const currentPlayer = deriveActivePlayer(prevState);
             return [{square: {row: rowIndex, col: colIndex}, player: currentPlayer}, ...prevState];
         });
     }
